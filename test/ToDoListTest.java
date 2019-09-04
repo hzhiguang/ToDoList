@@ -7,7 +7,6 @@ import org.junit.*;
 import org.junit.Test;
 import junit.framework.*;
 
-
 public class ToDoListTest extends TestCase{
 	private Task task1;
 	private Task task2;
