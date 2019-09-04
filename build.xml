@@ -5,24 +5,25 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="TodoList">
     <property environment="env"/>
+    <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
     <path id="JUnit 5.libraryclasspath">
-        <pathelement location="target/org.junit.jupiter.api_5.4.0.v20190212-2109.jar"/>
-        <pathelement location="target/org.junit.jupiter.engine_5.4.0.v20190212-2109.jar"/>
-        <pathelement location="target/org.junit.jupiter.migrationsupport_5.4.0.v20190212-2109.jar"/>
-        <pathelement location="target/org.junit.jupiter.params_5.4.0.v20190212-2109.jar"/>
-        <pathelement location="target/org.junit.platform.commons_1.4.0.v20190212-2109.jar"/>
-        <pathelement location="target/org.junit.platform.engine_1.4.0.v20190212-2109.jar"/>
-        <pathelement location="target/org.junit.platform.launcher_1.4.0.v20190212-2109.jar"/>
-        <pathelement location="target/org.junit.platform.runner_1.4.0.v20190212-2109.jar"/>
-        <pathelement location="target/org.junit.platform.suite.api_1.4.0.v20190212-2109.jar"/>
-        <pathelement location="target/org.junit.vintage.engine_5.4.0.v20190212-2109.jar"/>
-        <pathelement location="target/org.opentest4j_1.1.1.v20190212-2109.jar"/>
-        <pathelement location="target/org.apiguardian_1.0.0.v20190212-2109.jar"/>
-        <pathelement location="target/org.junit_4.12.0.v201504281640/junit.jar"/>
-        <pathelement location="target/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
+    	<pathelement location="target/org.junit.jupiter.api_5.4.0.v20190212-2109.jar"/>
+    	<pathelement location="target/org.junit.jupiter.engine_5.4.0.v20190212-2109.jar"/>
+    	<pathelement location="target/org.junit.jupiter.migrationsupport_5.4.0.v20190212-2109.jar"/>
+    	<pathelement location="target/org.junit.jupiter.params_5.4.0.v20190212-2109.jar"/>
+    	<pathelement location="target/org.junit.platform.commons_1.4.0.v20190212-2109.jar"/>
+    	<pathelement location="target/org.junit.platform.engine_1.4.0.v20190212-2109.jar"/>
+    	<pathelement location="target/org.junit.platform.launcher_1.4.0.v20190212-2109.jar"/>
+    	<pathelement location="target/org.junit.platform.runner_1.4.0.v20190212-2109.jar"/>
+    	<pathelement location="target/org.junit.platform.suite.api_1.4.0.v20190212-2109.jar"/>
+    	<pathelement location="target/org.junit.vintage.engine_5.4.0.v20190212-2109.jar"/>
+    	<pathelement location="target/org.opentest4j_1.1.1.v20190212-2109.jar"/>
+    	<pathelement location="target/org.apiguardian_1.0.0.v20190212-2109.jar"/>
+    	<pathelement location="target/org.junit_4.12.0.v201504281640/junit.jar"/>
+    	<pathelement location="target/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
     </path>
     <path id="TodoList.classpath">
         <pathelement location="bin"/>
@@ -68,5 +69,22 @@
     <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
+    </target>
+    <target name="ToDoListTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ToDoListTest" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="TodoList.classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
     </target>
 </project>
