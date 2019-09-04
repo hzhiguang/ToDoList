@@ -7,7 +7,11 @@ public class ToDoList {
 	private HashMap<String, Task> tasks = new HashMap<String, Task>();
 	
 	public void addTask (Task task) {
-		tasks.put(task.getDescription(), task);
+		if (task.getDescription()!=null){
+		tasks.put(task.getDescription(), task);}
+		else {
+			System.out.println("Please Add Description Name");
+		}
 	}
 	public void completeTask(String description) {
 		Task task = null;

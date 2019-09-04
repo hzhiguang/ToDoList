@@ -18,9 +18,9 @@ public class ToDoListTest extends TestCase{
 	}
 	@Before
 	 public void setUp() throws Exception{
-		task1 = new Task ("desc 1");
-		task2 = new Task ("desc 2");
-		task3 = new Task ("desc 3");
+		task1 = new Task ("empty1");
+		task2 = new Task ("empty2");
+		task3 = new Task ("empty3");
 		
 		todoList = new ToDoList();
 	}
